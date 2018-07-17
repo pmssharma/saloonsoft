@@ -1,10 +1,12 @@
 package com.saloonsoft.app.dto;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class StaffDTO {
 
-	private String UUID;
+	private String id;
+	private String uuid;
 	private String firstName;
 	private String surName;
 	private String iDNumber;
@@ -13,38 +15,19 @@ public class StaffDTO {
 	private String email;
 	private String staffNumber;
 	private Date appointmentDate;
-	private String residentialaddress;
-	private String postaladdress;
+	private String residentialAddress;
+	private String postalAddress;
 	private String role; 
 	private StaffServicesDTO[] staffServicesDTO;
 	
 	
-	/**
-	 * @return the residentialaddress
-	 */
-	public String getResidentialaddress() {
-		return residentialaddress;
+	public String getId() {
+		return id;
 	}
-	/**
-	 * @param residentialaddress the residentialaddress to set
-	 */
-	public void setResidentialaddress(String residentialaddress) {
-		this.residentialaddress = residentialaddress;
+	public void setId(String id) {
+		this.id = id;
 	}
-
-	
-	/**
-	 * @return the uUID
-	 */
-	public String getUUID() {
-		return UUID;
-	}
-	/**
-	 * @param uUID the uUID to set
-	 */
-	public void setUUID(String uUID) {
-		UUID = uUID;
-	}
+		
 	/**
 	 * @return the firstName
 	 */
@@ -142,18 +125,7 @@ public class StaffDTO {
 		this.appointmentDate = appointmentDate;
 	}
 	
-	/**
-	 * @return the postaladdress
-	 */
-	public String getPostaladdress() {
-		return postaladdress;
-	}
-	/**
-	 * @param postaladdress the postaladdress to set
-	 */
-	public void setPostaladdress(String postaladdress) {
-		this.postaladdress = postaladdress;
-	}
+	
 	/**
 	 * @return the role
 	 */
@@ -173,5 +145,30 @@ public class StaffDTO {
 	public void setStaffServicesDTO(StaffServicesDTO[] staffServicesDTO) {
 		this.staffServicesDTO = staffServicesDTO;
 	}
-	
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	public String getResidentialAddress() {
+		return residentialAddress;
+	}
+	public void setResidentialAddress(String residentialAddress) {
+		this.residentialAddress = residentialAddress;
+	}
+	public String getPostalAddress() {
+		return postalAddress;
+	}
+	public void setPostalAddress(String postalAddress) {
+		this.postalAddress = postalAddress;
+	}
+	@Override
+	public String toString() {
+		return "StaffDTO [id=" + id + ", uuid=" + uuid + ", firstName=" + firstName + ", surName=" + surName
+				+ ", iDNumber=" + iDNumber + ", dateOfBirth=" + dateOfBirth + ", contactNumber=" + contactNumber
+				+ ", email=" + email + ", staffNumber=" + staffNumber + ", appointmentDate=" + appointmentDate
+				+ ", residentialAddress=" + residentialAddress + ", postalAddress=" + postalAddress + ", role=" + role
+				+ ", staffServicesDTO=" + Arrays.toString(staffServicesDTO) + "]";
+	}
 }

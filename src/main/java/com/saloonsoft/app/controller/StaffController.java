@@ -31,4 +31,16 @@ public class StaffController {
 	public List<StaffDTO> getStaffByCode(@Valid @RequestParam String staffCode) {
 		return staffService.findByiDNumber(staffCode);
 	}
+	
+	@RequestMapping(value = "/v1/deleteByStaffId", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String deleteByStaffId(@Valid @RequestParam String staffId) {
+		return staffService.delete(staffId);
+	}
+
+	@RequestMapping(value = "/v1/updateStaff", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String updateStaff(@Valid @RequestParam StaffDTO staffDTO) {
+		return staffService.updateStaff(staffDTO);
+	}
+
+	
 }

@@ -1,5 +1,6 @@
 package com.saloonsoft.app.entities;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -19,7 +20,7 @@ public class Staff {
 		this.id = id;
 	}
 	
-	private String UUID;
+	private String uuid;
 	private String firstName;
 	private String surName;
 	private String iDNumber;
@@ -28,18 +29,12 @@ public class Staff {
 	private String email;
 	private String staffNumber;
 	private Date appointmentDate;
-	private String residentialaddress;
-	private String postaladdress;
+	private String residentialAddress;
+	private String postalAddress;
 	private String role; 
 	private StaffServicesDTO[] staffServicesDTO;
 	
 	
-	public String getUUID() {
-		return UUID;
-	}
-	public void setUUID(String uUID) {
-		UUID = uUID;
-	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -88,18 +83,7 @@ public class Staff {
 	public void setAppointmentDate(Date appointmentDate) {
 		this.appointmentDate = appointmentDate;
 	}
-	public String getResidentialaddress() {
-		return residentialaddress;
-	}
-	public void setResidentialaddress(String residentialaddress) {
-		this.residentialaddress = residentialaddress;
-	}
-	public String getPostaladdress() {
-		return postaladdress;
-	}
-	public void setPostaladdress(String postaladdress) {
-		this.postaladdress = postaladdress;
-	}
+	
 	public String getRole() {
 		return role;
 	}
@@ -112,5 +96,23 @@ public class Staff {
 	public void setStaffServicesDTO(StaffServicesDTO[] staffServicesDTO) {
 		this.staffServicesDTO = staffServicesDTO;
 	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 	
+	public String getResidentialAddress() {
+		return residentialAddress;
+	}
+	public void setResidentialAddress(String residentialAddress) {
+		this.residentialAddress = residentialAddress;
+	}
+	public String getPostalAddress() {
+		return postalAddress;
+	}
+	public void setPostalAddress(String postalAddress) {
+		this.postalAddress = postalAddress;
+	}
 }

@@ -3,7 +3,6 @@ package com.saloonsoft.app.entities;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.saloonsoft.app.dto.ProcedureStepsDTO;
 
 @Document(collection = "PublicHolidays")
 public class PublicHolidays {
@@ -17,8 +16,12 @@ public class PublicHolidays {
 	}
 	
 	private String publicHolidayDesc; 
+	private int year;
+	private String startDate;
+	private String endDate;
 	private String startTime;
 	private String endTime;
+	
 	public String getPublicHolidayDesc() {
 		return publicHolidayDesc;
 	}
@@ -37,7 +40,25 @@ public class PublicHolidays {
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
+	public int getYear() {
+		return year;
+	}
+	public void setYear(int year) {
+		this.year = year;
+	}
 	
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 	
 	
 }

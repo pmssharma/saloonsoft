@@ -2,10 +2,12 @@ package com.saloonsoft.app.dto;
 
 public class AppointmentObject
 {
+	//private String id;
     private ProcessObject[] processName;
     private String clientID;
     private String appDate;
 
+    
     public ProcessObject[] getProcessName ()
     {
         return processName;

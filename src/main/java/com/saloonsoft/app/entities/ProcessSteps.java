@@ -19,6 +19,8 @@ public class ProcessSteps {
 	private String procedure;
 	private String duration;
 	private String pid;
+	private String aid;
+	
 	public String getStaff() {
 		return staff;
 	}
@@ -49,4 +51,11 @@ public class ProcessSteps {
 	public void setPid(String pid) {
 		this.pid = pid;
 	}
+	public String getAid() {
+		return aid;
+	}
+	public void setAid(String aid) {
+		this.aid = aid;
+	}
+	
 }

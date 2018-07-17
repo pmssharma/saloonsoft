@@ -4,12 +4,20 @@ package com.saloonsoft.app.dto;
 
 public class ProcedureDTO {
 
+	private String id;
 	private String processID; 
 	private String processName;
 	private String duration;
 	private int stepCount;
 	private ProcedureStepsDTO[] procedureSteps;
 	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getProcessID() {
 		return processID;
 	}

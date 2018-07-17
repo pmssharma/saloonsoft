@@ -2,8 +2,6 @@ package com.saloonsoft.app.entities;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import com.saloonsoft.app.dto.ProcedureStepsDTO;
-
 
 
 @Document(collection = "App")
@@ -20,6 +18,7 @@ public class App {
 	
 	private String appDate;
 	private String clientID;
+	
 	public String getAppDate() {
 		return appDate;
 	}

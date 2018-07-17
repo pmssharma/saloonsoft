@@ -1,29 +1,14 @@
 package com.saloonsoft.app.services;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.bson.Document;
 import org.springframework.stereotype.Service;
-
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCursor;
-import com.mongodb.MongoClient;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import com.saloonsoft.app.dto.AppointmentObject;
 import com.saloonsoft.app.dto.ProcedureStepsDTO;
-import com.saloonsoft.app.dto.ProcedureStepsObject;
 import com.saloonsoft.app.dto.ProcessObject;
 import com.saloonsoft.app.entities.App;
-import com.saloonsoft.app.entities.AppointmentCollection;
-import com.saloonsoft.app.entities.AppointmentCollection2;
-import com.saloonsoft.app.entities.ProcedureCollection;
-import com.saloonsoft.app.entities.ProcedureStepsCollection;
-import com.saloonsoft.app.entities.ProcessCollection;
 import com.saloonsoft.app.entities.ProcessSteps;
 import com.saloonsoft.app.repositories.AppRep;
 import com.saloonsoft.app.repositories.Appointmentepository;
@@ -67,19 +52,14 @@ public class AppointmentServiceImpl implements AppointmentService {
 				psteps.setProcedure(pobj[i].getProcedureSteps()[j].getProcedure());
 				psteps.setStaff(pobj[i].getProcedureSteps()[j].getStaff());
 				psteps.setPid(p.getId());
+				psteps.setAid(appObject.getId());
 				psrep.save(psteps);
 
-
 			}
-
 
 		}
 
 		return "sucess";
-
-
-
-
 	}
 
 	@Override
@@ -169,9 +149,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 				int k=0;
 				for(ProcessSteps pss : psObject) {
-
 					ProcedureStepsDTO pssss=new ProcedureStepsDTO();
-
 
 					pssss.setStaff(pss.getStaff());
 					System.out.println(pss.getStaff());
@@ -182,10 +160,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 					k++;
 				}
 
-
 				pArray[j].setProcedureSteps(psArray);
 				++j;
-
 
 			}
 			dto.setProcessName(pArray);

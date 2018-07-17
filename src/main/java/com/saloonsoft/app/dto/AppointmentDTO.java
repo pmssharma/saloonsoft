@@ -5,6 +5,13 @@ public class AppointmentDTO {
 
 	
 	private String appDate;
+	private String appID;
+	private String clientID;
+	private String stylishName;
+	private String processName;
+	private String procedureStep;
+	private String timeSlot;
+	
 	public String getAppDate() {
 		return appDate;
 	}
@@ -47,19 +54,5 @@ public class AppointmentDTO {
 	public void setTimeSlot(String timeSlot) {
 		this.timeSlot = timeSlot;
 	}
-	private String appID;
-	private String clientID;
-	private String stylishName;
-	private String processName;
-	private String procedureStep;
-	private String timeSlot;
-	
-	
-	
-	
-	
-	
-
-	
 
 }

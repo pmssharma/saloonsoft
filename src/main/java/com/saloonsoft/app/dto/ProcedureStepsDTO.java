@@ -2,12 +2,13 @@ package com.saloonsoft.app.dto;
 
 public class ProcedureStepsDTO {
 
+	private String id;
 	private String staff;
 	private String procedureStepID;
 	private String procedure;
 	private String duration;
 	
-    public String getStaff() {
+	public String getStaff() {
 		return staff;
 	}
 	
@@ -37,6 +38,14 @@ public class ProcedureStepsDTO {
 	
 	public void setDuration(String duration) {
 		this.duration = duration;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

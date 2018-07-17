@@ -1,13 +1,24 @@
 package com.saloonsoft.app.dto;
 
+import java.util.Arrays;
 
 public class ProcessObject
 {
+	private String id;
     private String name;
     private ProcedureStepsDTO[] procedureSteps;
     private String timeSlot;
     
-    public String getName ()
+    
+    public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName ()
     {
         return name;
     }
@@ -37,9 +48,10 @@ public class ProcessObject
         this.timeSlot = timeSlot;
     }
 
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [name = "+name+", procedureSteps = "+procedureSteps+", timeSlot = "+timeSlot+"]";
-    }
+	@Override
+	public String toString() {
+		return "ProcessObject [name=" + name + ", procedureSteps=" + Arrays.toString(procedureSteps) + ", timeSlot="
+				+ timeSlot + "]";
+	}
+    
 }

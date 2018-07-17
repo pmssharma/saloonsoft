@@ -1,9 +1,10 @@
 package com.saloonsoft.app.dto;
 
+import java.util.Arrays;
 
 public class AppointDto {
 
-	
+	//private String id;
 	private String appDate;
 	private String clientID;
 	private String processName;
@@ -11,6 +12,12 @@ public class AppointDto {
 	private ProcedureStepsDTO[] procedureStepsDTO;
 	
 	
+	public ProcedureStepsDTO[] getProcedureStepsDTO() {
+		return procedureStepsDTO;
+	}
+	public void setProcedureStepsDTO(ProcedureStepsDTO[] procedureStepsDTO) {
+		this.procedureStepsDTO = procedureStepsDTO;
+	}
 	public String getAppDate() {
 		return appDate;
 	}
@@ -42,12 +49,12 @@ public class AppointDto {
 		this.procedureStepsDTO = procedureSteps;
 	}
 	
-	 
+	@Override
+	public String toString() {
+		return "AppointDto [appDate=" + appDate + ", clientID=" + clientID + ", processName=" + processName
+				+ ", timeSlot=" + timeSlot + ", procedureStepsDTO=" + Arrays.toString(procedureStepsDTO) + "]";
+	}
 	
 	
 	
-	
-
-	
-
 }

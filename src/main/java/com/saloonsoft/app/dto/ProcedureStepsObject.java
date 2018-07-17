@@ -2,7 +2,7 @@ package com.saloonsoft.app.dto;
 
 public class ProcedureStepsObject {
 
-	
+		//private String id;
 	    private String duration;
 	    private String staff;
 	    private String procedure;
@@ -36,11 +36,6 @@ public class ProcedureStepsObject {
 	    {
 	        this.procedure = procedure;
 	    }
-
-	    @Override
-	    public String toString()
-	    {
-	        return "ClassPojo [duration = "+duration+", staff = "+staff+", procedure = "+procedure+"]";
-	    }
-	}
+			   	
+}
 
