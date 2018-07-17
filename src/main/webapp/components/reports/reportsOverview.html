@@ -1,0 +1,107 @@
+
+<div class="row">
+	<div class="col-sm-12">
+		<ol class="breadcrumb">
+			<li class="active">Overview</li>
+		</ol>
+	</div>
+	<div class="col-sm-12" ng-show="loadingPortfolio || loadingPortfolioError">
+		<div class="" ng-show="loadingPortfolio">
+			<div class="well well-lg marginTop40px center-block progressBarContainer">
+				<uib-progressbar class="progress-striped active progressBarContainer" value="100" type="{{type}}">{{type}}loading...</uib-progressbar>
+			</div>
+		</div>
+		<div class="" ng-show="loadingPortfolioError">
+			<div class="alert alert-danger" role="alert">
+				<form class="form-inline">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					<span class="sr-only">Error:</span>
+					Your portfolio overview has failed to load.     <button type="button" class="btn btn-danger btn-xs" ng-click="reloadPortfolio()"><span class="glyphicon glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12" ng-show="!loadingPortfolio && !loadingPortfolioError">
+		<div class="col-sm-4">
+			<div class="panel boxDropShadow panel-salon ">
+				<!-- Default panel contents -->
+				<div class="panel-heading">Current portfolio value</div>
+				<div class="panel-body text-center">
+					<h2>{{totalValue | currency : 'R'}}</h2>
+				</div>
+				<ul class="list-group">
+					<!--<tr ng-repeat="row in displayedSearchResults" ng-click="loadEntity(row)" class="rowHover">-->
+					<li class="list-group-item" ng-repeat="acc in accounts">
+						<div class="media">
+							<div class="media-body">
+								<h4 class="media-heading"><a ui-sref="default.loggedIn.portfolio.detail({accountId: acc.bda})">{{acc.name}}</a></h4>
+								<dl class="dl-horizontal marginBottom0px">
+									<dt>Total value: </dt>
+									<dd>{{acc.totalValue | currency : 'R'}}</dd>
+								</dl>
+								<dl class="dl-horizontal marginBottom0px">
+									<dt>Acc number: </dt>
+									<dd>{{acc.bda}}</dd>
+								</dl>
+							</div>
+							<div class="media-right media-middle">
+								<span ng-click="showAcc(acc.bda)" class="pointer glyphicon glyphicon glyphicon-stats " ng-class="(ass.isShowing)? 'chartColour{{$index+1}}' : 'chartHidden'"></span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-sm-6 paddingLeft0px paddingRight0px">
+			<div class="center-block alignC">
+				<div class="btn-group btn-group-sm" role="group" aria-label="Group">
+					<button type="button" class="btn btn-primary btn-sasfin-acttive" ng-click="chartDate('1')" ng-class="(chartYears == '1')? 'active' : ''">1yr</button>
+					<button type="button" class="btn btn-primary btn-sasfin-acttive" ng-click="chartDate('2')" ng-class="(chartYears == '2')? 'active' : ''">2yr</button>
+					<button type="button" class="btn btn-primary btn-sasfin-acttive" ng-click="chartDate('3')" ng-class="(chartYears == '3')? 'active' : ''">3yr</button>
+				</div>
+			</div>
+
+			<div class="paddingTop10px">
+				<!--<nvd3 options="options" data="performanceData"></nvd3>-->
+				<canvas id="line" class="chart chart-line"
+						chart-data="performanceData"
+						chart-labels="labels"
+						chart-options="chartOptions"
+						chart-legend="true"
+						chart-series="series"
+						chart-colours="colours">
+				</canvas>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<h5>Comparison indexes:</h5>
+			<div class="list-group itemTest listItemActive">
+				<a href="#" class="list-group-item" ng-click="gogogo(event)" ng-class="(classClick == true)? 'comparisonChartColour active' : ''">
+					<span class="comparisonChartColour glyphicon glyphicon-stats"></span>
+					All Share
+				</a>
+				<a href="#" class="list-group-item" ng-click="gogogo()">
+					<span class="glyphicon glyphicon-chevron-left"></span>
+					Dapibus ac facilisis in
+				</a>
+				<a href="#" class="list-group-item" ng-click="gogogo()">Morbi leo risus</a>
+				<a href="#" class="list-group-item" ng-click="gogogo()">Porta ac consectetur ac</a>
+				<a href="#" class="list-group-item" ng-click="gogogo()">Vestibulum at eros</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script type="text/ng-template" id="portfolioLoadFail.html.inline">
+	<div class="modal-header">
+		<h3 class="modal-title">Portfolio load failure</h3>
+	</div>
+	<div class="modal-body">
+		An error occurred loading your portfolio.
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="closeLoginFail()">Close</button>
+	</div>
+</script>

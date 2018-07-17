@@ -1,0 +1,59 @@
+
+<div>
+	<form class="form-signin">
+		<div class="loginLogo marginRight10px marginTop30px text-center">
+			<img src="/img/logo_full.png" width="137" height="46" title="desktop_logo.png">
+		</div>
+		<div class="text-center mb-4 marginTop40px warningIconSize">
+Admin
+		</div>
+
+		<div class="form-label-group">
+			<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+			<label for="inputEmail">Email address</label>
+		</div>
+
+		<div class="form-label-group">
+			<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+			<label for="inputPassword">Password</label>
+		</div>
+
+		<div class="checkbox mb-3">
+			<label>
+				<input type="checkbox" value="remember-me"> Remember me
+			</label>
+		</div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="performLogin()">Sign in</button>
+		<p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
+	</form>
+</div>
+
+<script type="text/ng-template" id="loginFail.html.inline">
+	<div class="modal-header">
+		<h3 class="modal-title">Login failure</h3>
+	</div>
+	<div class="modal-body">
+		An error occurred logging you in.
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-sm btn-primary" ng-click="closeLoginFail()">Close</button>
+	</div>
+</script>
+
+<script type="text/ng-template" id="loginForgotPassword.html.inline">
+	<div class="modal-header">
+		<h3 class="modal-title">Forgot password</h3>
+	</div>
+	<div class="modal-body">
+		<form autocomplete="off" class="inline">
+			Please enter your username.
+			<div class="form-group">
+				<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="" autocomplete="off" ng-model="userLoginData.userName">
+			</div>
+			<button class="btn btn-sm btn-primary" ng-click="submitForgotPassword()">Next</button>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-sm btn-primary" ng-click="closeLoginFail()">Close</button>
+	</div>
+</script>

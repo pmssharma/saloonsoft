@@ -1,0 +1,72 @@
+<table class="calendar-table table table-striped table-bordered table-hover" cellspacing="0" cellpadding="0">
+	<thead>
+	<tr>
+		<td class="width220px"></td>
+		<td class="" nowrap>
+			<div style="width: 720px">
+				<div ng-repeat="hour in getNumber(numberOfHours) track by $index" style="float:left;">
+					<div style="float: left">
+						<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+						<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+						<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+						<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+						<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+						<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+						<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+						<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+						<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+						<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+						<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+						<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+						<div class="calendar-head-dateText" style="position: absolute">
+							{{$index + startHour}}:00
+						</div>
+					</div>
+				</div>
+			</div>
+		</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="row in scheduleData" class="rowHover">
+		<td>{{row[0].name}}</td>
+		<td class="paddingLeft0px paddingRight0px padding0px">
+			<div>
+				<div ng-repeat="hour in getNumber(numberOfHours) track by $index" style="">
+					<div class="calendar-panels-background-height" ng-if="row.start != ($index + startHour + 5) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+					<div class="calendar-panels-background-height" ng-if="row.start != ($index + startHour + 10) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+					<div class="calendar-panels-background-height" ng-if="row.start != ($index + startHour + 15) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+					<div class="calendar-panels-background-height" ng-if="row.start != ($index + startHour + 20) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+					<div class="calendar-panels-background-height" ng-if="row.start != ($index + startHour + 25) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+					<div class="calendar-panels-background-height" ng-if="row.start != ($index + startHour + 30) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+					<div class="calendar-panels-background-height" ng-if="row.start != ($index + startHour + 35) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+					<div class="calendar-panels-background-height" ng-if="row.start != ($index + startHour + 40) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+					<div class="calendar-panels-background-height" ng-if="row.start != ($index + startHour + 45) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+					<div class="calendar-panels-background-height" ng-if="row.start != ($index + startHour + 50) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+					<div class="calendar-panels-background-height" ng-if="row.start != ($index + startHour + 55) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+					<div class="calendar-panels-background-height" ng-if="row.start != ($index + startHour + 60) " style="width:4px; min-width: 4px; float: left">&nbsp;</div>
+					<div class="calendar-panels-background-height" ng-if="row.start != ($index + startHour + 60) " style="background-color: #ddd; width:1px; min-width: 1px; float: left">&nbsp;</div>
+				</div>
+			</div>
+			<div style="position: absolute" class="marginTop5px">
+					<div ng-repeat="appointment in row track by $index" class="padding5px calendar-panels calendar-panels-purple boxDropShadow2 calendar-panels-height" style="left:{{appointment.positionIncrement   }}px; width:{{appointment.durationIncrements}}px; float: left; ">
+						&nbsp;
+					</div>
+			</div>
+		</td>
+	</tr>
+	</tbody>
+</table>
+
+
+<script type="text/ng-template" id="scheduleItem.html.inline">
+	<div class="modal-header">
+		<h3 class="modal-title">New booking</h3>
+	</div>
+	<div class="modal-body row">
+		Words...
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-m btn-primary" ng-click="closeLoginFail()">Close</button>
+	</div>
+</script>

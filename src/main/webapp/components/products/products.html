@@ -1,0 +1,134 @@
+<div class="paddingTop20px paddingLeft20px paddingRight20px paddingBottom20px">
+	<h3 CLASS="marginTop0px"><strong>Products</strong></h3>
+	<div class="col-sm-12 horizontalBlockDivider marginTop10px marginBottom20px"></div>
+
+	<div class="" ng-show="loadingOrders">
+		<div class="well well-lg marginTop40px center-block progressBarContainer">
+			<uib-progressbar class="progress-striped active progressBarContainer" value="100" type="{{type}}">{{type}}loading...</uib-progressbar>
+		</div>
+	</div>
+	<div class="col-sm-12" ng-show="loadingOrdersError">
+		<div class="alert alert-danger" role="alert">
+			<form class="form-inline">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span class="sr-only">Error:</span>
+				Your open orders has failed to load.     <button type="button" class="btn btn-danger btn-xs" ng-click="getOrders()"><span class="glyphicon glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+			</form>
+		</div>
+	</div>
+
+	<div class="marginBottom20px alignC" ng-show="!loadingOrders && !loadingOrdersError">
+		<div class="btn-group btn-group-sm" role="group" aria-label="Group">
+			<button type="button" class="btn btn-primary" ng-click="changeTradeDisplay('all')" ng-class="(tradeDisplay == 'all')? 'active' : ''">All trades</button>
+			<button type="button" class="btn btn-primary" ng-click="changeTradeDisplay('perAcc')" ng-class="(tradeDisplay == 'perAcc')? 'active' : ''">Per account</button>
+			<button type="button" class="btn btn-primary" ng-click="changeTradeDisplay('other')" ng-class="(tradeDisplay == 'other')? 'active' : ''">other...</button>
+		</div>
+	</div>
+
+	<div ng-show="tradeDisplay == 'all'">
+
+		<div class=" table-responsive" ng-show="!loadingOrders && !loadingOrdersError">
+			<!-- Default panel contents -->
+			<!--<div class="panel-heading">Orders</div>-->
+
+			<!-- Table -->
+			<table st-table="orders" st-safe-src="displayedOrders" class="table table-hover table-striped pointer">
+				<thead>
+				<tr>
+					<th st-sort="shareCode" st-ratio="5">Symbol</th>
+					<th st-sort="buySell" st-ratio="5">Type</th>
+					<th st-sort="date" st-ratio="20">Date</th>
+					<th st-sort="price" st-ratio="10">Price</th>
+					<th st-sort="priceType" st-ratio="10">Price type</th>
+					<th st-sort="instrType" st-ratio="10">Instrument type</th>
+					<th st-sort="volume" st-ratio="10">Volume</th>
+					<th st-ratio="30"></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="row in orders" class="rowHover">
+					<td st-ratio="10" ng-click="loadOrderDetail(row)">{{row.shareCode}}</td>
+					<td st-ratio="5" ng-click="loadOrderDetail(row)">
+						<span class="badge buyColor" ng-show="row.buySell == 'B'">Buy</span><span class="badge sellColor" ng-show="row.buySell == 'S'">Sell</span>
+					</td>
+					<td st-ratio="20" ng-click="loadOrderDetail(row)">{{row.date | date: 'yyyy-MM-dd HH:mm'}}</td>
+					<td st-ratio="10" ng-click="loadOrderDetail(row)">{{row.price | currency : 'R'}}</td>
+					<td st-ratio="10" ng-click="loadOrderDetail(row)">{{row.priceType}}</td>
+					<td st-ratio="10" ng-click="loadOrderDetail(row)">{{row.instrType}}</td>
+					<td st-ratio="10" ng-click="loadOrderDetail(row)">{{row.volume}}</td>
+					<td st-ratio="30">
+						<button type="button" class="btn btn-sm btn-primary gradient dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Cancel<!--span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>-->
+						</button></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div ng-show="tradeDisplay == 'perAcc'">
+		<div ng-repeat="acc in accounts" class="panel panel-primary panel-default table-responsive" ng-show="!loadingOrders && !loadingOrdersError">
+			<!-- Default panel contents -->
+			<div class="panel-heading">Orders</div>
+
+			<!-- Table -->
+			<table st-table="accounts" st-safe-src="displayedAccounts" class="table table-hover table-striped table-bordered pointer ">
+				<thead>
+				<tr>
+					<th st-sort="buySell" st-ratio="5">Type</th>
+					<th st-sort="date" st-ratio="20">Date</th>
+					<th st-sort="price" st-ratio="10">Price</th>
+					<th st-sort="priceType" st-ratio="10">Price type</th>
+					<th st-sort="instrType" st-ratio="10">Instrument type</th>
+					<th st-sort="volume" st-ratio="10">Volume</th>
+					<th st-ratio="30"></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="row in acc" class="rowHover">
+					<td st-ratio="5" ng-click="loadOrderDetail(row)"><span class="badge buyColor" ng-show="row.buySell == 'B'">Buy</span><span class="badge sellColor" ng-show="row.buySell == 'S'">Sell</span></td>
+					<td st-ratio="20" ng-click="loadOrderDetail(row)">{{row.date | date: 'yyyy-MM-dd HH:mm'}}</td>
+					<td st-ratio="10" ng-click="loadOrderDetail(row)">{{row.price | currency : 'R'}}</td>
+					<td st-ratio="10" ng-click="loadOrderDetail(row)">{{row.priceType}}</td>
+					<td st-ratio="10" ng-click="loadOrderDetail(row)">{{row.instrType}}</td>
+					<td st-ratio="10" ng-click="loadOrderDetail(row)">{{row.volume}}</td>
+					<td st-ratio="30">
+						<button type="button" class="btn btn-sm btn-primary gradient dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Cancel<!--span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>-->
+						</button></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div ng-show="tradeDisplay == 'other'">
+
+	</div>
+
+</div>
+
+
+
+
+
+
+
+<script type="text/ng-template" id="orderDetail.html.inline">
+	<div class="modal-header">
+		<h3 class="modal-title">Open order detail</h3>
+	</div>
+	<div class="modal-body">
+		<dl class="dl-horizontal">
+			<dt>buySell: </dt>
+			<dd>{{equity.buySell}}</dd>
+			<dt>instrType</dt>
+			<dd>{{equity.instrType}}</dd>
+			<dt>date</dt>
+			<dd>{{equity.date}}</dd>
+			<dt>handledDate</dt>
+			<dd>{{equity.handledDate}}</dd>
+		</dl>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-sm btn-primary" ng-click="closeLoginFail()">Close</button>
+	</div>
+</script>

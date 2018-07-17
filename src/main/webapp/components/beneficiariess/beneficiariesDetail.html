@@ -1,0 +1,111 @@
+<div>
+	<ol class="breadcrumb">
+		<li><a ui-sref="default.loggedIn.portfolio">Overview</a></li>
+		<li class="active">Data</li>
+	</ol>
+	<div class="" ng-show="loadingPortfolioDetail">
+		<div class="well well-lg marginTop40px center-block progressBarContainer">
+			<uib-progressbar class="progress-striped active progressBarContainer" value="100" type="{{type}}">{{type}}loading...</uib-progressbar>
+		</div>
+	</div>
+	<div class="col-sm-12" ng-show="loadingPortfolioDetailError">
+		<div class="alert alert-danger" role="alert">
+			<form class="form-inline">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span class="sr-only">Error:</span>
+				Load failure.     <button type="button" class="btn btn-danger btn-xs" ng-click="getPortfolioData()"><span class="glyphicon glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+			</form>
+		</div>
+	</div>
+	<div class="table-responsive" ng-show="!loadingPortfolioDetail && !loadingPortfolioDetailError">
+		<!-- Default panel contents -->
+		<!--<div class="panel-heading">Portfolio holdings</div>-->
+		<h3 CLASS="marginTop0px"><strong>Beneficiaries</strong></h3>
+		<div class="col-sm-12 horizontalBlockDivider marginTop10px marginBottom40px"></div>
+		<!-- Table -->
+		<table st-table="accountDetail" st-safe-src="displayedAccountDetail" class="table table-hover table-striped pointer ">
+			<thead>
+			<tr>
+				<th st-sort="symbol" st-ratio="10">Symbol</th>
+				<th st-sort="shareName" st-ratio="20">Name</th>
+				<th st-sort="qty" st-ratio="10">Quantity</th>
+				<th st-sort="cost" st-ratio="10">Cost</th>
+				<th st-sort="price" st-ratio="10">Market Price</th>
+				<th st-sort="" st-ratio="10">% P&L</th>
+				<th st-sort="qty*cost" st-ratio="10">Value</th>
+				<th st-sort="marketValue" st-ratio="20">Market Value</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="row in accountDetail" ng-click="loadPortfolioEquityDetail(row)" class="rowHover">
+				<td st-ratio="10">{{row.symbol}}</td>
+				<td st-ratio="20">{{row.shareName}}</td>
+				<td st-ratio="10">{{row.qty}}</td>
+				<td st-ratio="10">{{row.cost/100 | currency : 'R'}}</td>
+				<td st-ratio="10" class="padding0px"><div class="padding8px" ng-animate="'animate'" animate-on-change='row.price'>{{row.price/100 | currency : 'R'}} <i class="glyphicon marginleft5px" ng-class="(row.style == 'positive')? 'glyphicon-chevron-up greenText' : 'glyphicon-chevron-down redText'" ng-show="row.style"></i></div></td>
+				<td st-ratio="10">{{((row.price - row.cost)/row.cost)*100 | currency : ''}}%</td>
+				<td st-ratio="10">{{(row.qty*row.cost)/100  | currency : 'R'}}</td>
+				<td st-ratio="20" class="padding0px"><div class="padding8px" ng-animate="'animate'" animate-on-change='row.marketValue'>{{row.marketValue | currency : 'R'}} <i class="glyphicon marginleft5px" ng-class="(row.style == 'positive')? 'glyphicon-chevron-up greenText' : 'glyphicon-chevron-down redText'" ng-show="row.style"></i></div></td>
+			</tr>
+			</tbody>
+			<!--tfoot>
+				<tr>
+					<td colspan="5" class="text-center">
+						<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+					</td>
+				</tr>
+			</tfoot-->
+		</table>
+	</div>
+</div>
+
+
+
+
+
+
+
+<script type="text/ng-template" id="portfolioEquityDetail.html.inline">
+	<div class="modal-header">
+		<h3 class="modal-title">Equity Detail</h3>
+	</div>
+	<div class="modal-body">
+		<dl class="dl-horizontal">
+			<dt>Name: </dt>
+			<dd>{{equity.shareName}}</dd>
+			<dt>Symbol: </dt>
+			<dd>{{equity.symbol}}</dd>
+			<dt>Change: </dt>
+			<dd>{{equity.change}}</dd>
+			<dt>Change Percentage: </dt>
+			<dd>{{equity.changePerc}}</dd>
+			<dt>Cost: </dt>
+			<dd>{{equity.cost}}</dd>
+			<dt>Price: </dt>
+			<dd>{{equity.price}}</dd>
+			<dt>Close Price: </dt>
+			<dd>{{equity.closePrice}}</dd>
+			<dt>Quote Time: </dt>
+			<dd>{{equity.quoteTime}}</dd>
+			<dt>Quantity: </dt>
+			<dd>{{equity.qty}}</dd>
+			<dt>Cost Value: </dt>
+			<dd>{{equity.costValue}}</dd>
+			<dt>Profit/Loss: </dt>
+			<dd>{{equity.gainLoss}}</dd>
+			<dt>Profit/Loss Percentage: </dt>
+			<dd>{{equity.gainLossPerc}}</dd>
+			<dt>Sector: </dt>
+			<dd>{{equity.sector}}</dd>
+			<dt>Change Today: </dt>
+			<dd>{{equity.todayChange}}</dd>
+			<dt>Change Today percentage: </dt>
+			<dd>{{equity.todayChange}}</dd>
+			<dt>Available to sell: </dt>
+			<dd>{{equity.availableToSell}}</dd>
+		</dl>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="closeLoginFail()">Close</button>
+	</div>
+</script>

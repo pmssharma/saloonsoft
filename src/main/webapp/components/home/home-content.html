@@ -1,0 +1,347 @@
+
+<div class="paddingTop20px paddingLeft20px paddingRight20px paddingBottom20px row">
+	<div class="col-sm-10">
+		<button type="button" class="btn btn-m btn-primary marginRight15px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="newApp()">
+			<span aria-hidden="true" class="glyphicon glyphicon-plus"></span> New booking
+		</button>
+		<button type="button" class="btn btn-m btn-primary marginRight15px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="newApp()">
+			<span aria-hidden="true" class="glyphicon glyphicon-plus"></span> New client
+		</button>
+	</div>
+	<div class="col-sm-2">
+		<div class="row input-group">
+			<div class="col-md-12 dateInput">
+				<p class="input-group ">
+						<input type="text" class="form-control" readonly uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-m btn-primary" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12">
+		<div class="btn-group col-sm-push-5 marginBottom20px" ng-show="showHeader">
+			<label class="btn btn-primary" ng-model="radioModel" uib-btn-radio="'loggedIn.home.schedule'" ng-click="showSchedule()" uncheckable>Schedule</label>
+			<label class="btn btn-primary" ng-model="radioModel" uib-btn-radio="'loggedIn.home.clients'" ng-click="showClients()" uncheckable>Clients</label>
+		</div>
+
+		<div class="col-sm-12 overflowY minHeight400px paddingLeft5px marginLeft5px overflowX" ui-view>
+
+		</div>
+	</div>
+</div>
+
+
+<script type="text/ng-template" id="newBooking.html.inline">
+	<div class="modal-header">
+		<h3 class="modal-title">New booking</h3>
+	</div>
+	<div class="modal-body row RegWizard">
+		<div uib-carousel active="active" interval="0" no-wrap="false" actual="parents">
+			<div uib-slide index="0" active="p1">
+				<div class="col-sm-5 text-left">
+					<form>
+						<div class="col-sm-12 form-group">
+							<label for="servicesList">Service</label>
+							<select ng-model="formServiceItem" class="form-control" id="servicesList" name="servicesList"
+									ng-change="serviceChange()"
+									ng-options="item as item.name for item in services"></select>
+						</div>
+						<!--<div class="col-sm-2 form-group">-->
+							<!--<label for="servicesList">&nbsp;</label>-->
+							<!--<button type="submit" class="btn btn-primary" ng-click="addService()"><span aria-hidden="true" class="glyphicon glyphicon-plus"></span></button>-->
+						<!--</div>-->
+						<div class="col-sm-12 form-group paddingRight0px">
+							<label for="clientList">Client</label>
+							<select ng-model="formClientItem" class="form-control" id="clientList" name="clientList"
+									ng-change="clientChange()"
+									ng-options="item as item.name for item in clients"></select>
+							<div class="btn-group" uib-dropdown ng-if="formClientItem && formClientItem.history">
+								<button id="single-button" type="button" class="btn btn-xs btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+									History <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+									<li role="menuitem" ng-repeat="item in formClientItem.history" ng-click="handleSelectedHistory(item)"><a href="javascript:void(0)">{{item.name}}</a></li>
+								</ul>
+							</div>
+						</div>
+						<!--<div class="col-sm-6 form-group">-->
+							<!--<label for="stylistList">Stylist</label>-->
+							<!--<select ng-model="formStylistItem" class="form-control" id="stylistList" name="stylistList"-->
+									<!--ng-options="item as item.name for item in stylists"></select>-->
+						<!--</div>-->
+						<!--<div class="col-sm-12 paddingLeft0px" ng-if="formClientItem && formClientItem.history">-->
+							<!--<div class="col-sm-12 minHeight120px">-->
+						<div class="col-sm-12 form-group minHeight120px paddingRight0px" uib-collapse="isCollapsed">
+							<uib-accordion close-others="false">
+								<div ng-repeat="item in selectedServices" uib-accordion-group class="boxDropShadow panel-default selectedPanelItem marginTop10px" is-open="false">
+									<uib-accordion-heading>
+										<div>
+											<i class="pull-left glyphicon marginRight15px" ng-class="{'glyphicon-chevron-down': item.status.open, 'glyphicon-chevron-right': !item.status.open}"></i> {{item.name}} <i class="pull-right glyphicon glyphicon-remove redText" ng-click="deleteService(item)"></i>
+										</div>
+									</uib-accordion-heading>
+									<div class="whiteBackground">
+										<form>
+										<table class="smallerFontSize calendar-table calendar-table-tdPadding5px table table-striped table-bordered" cellspacing="0" cellpadding="0">
+											<thead>
+											<tr>
+												<td>&nbsp; Step</b></td>
+												<td>&nbsp; Stylist</b></td>
+												<td>&nbsp; Duration</b></td>
+												<td>&nbsp;</td>
+											</tr>
+											</thead>
+											<tbody>
+											<tr class="rowHover" ng-repeat="step in item.steps">
+												<td class="alignL">{{step.name}}</td>
+												<td>
+													<div class="input-group">
+														<select ng-model="formStylistItem" class="form-control input-sm" id="stylistList" name="stylistList"
+													        ng-options="item as item.name for item in stylists"></select>
+													</div>
+												</td>
+												<td>
+													<div style="white-space: nowrap">
+														<div class="input-group floatLeft">
+															<input type="text" class="form-control input-sm width50px" />
+														</div>
+														<div class="input-group floatLeft marginTop5px">
+															 mins
+														</div>
+													</div>
+												</td>
+												<td><i class="glyphicon glyphicon-remove redText pointer" ng-click="deleteServiceStep(step, item.steps, item)"></i></td>
+											</tr>
+											</tbody>
+										</table>
+										</form>
+									</div>
+									<!--<ul class="list-group">-->
+										<!--<li class="list-group-item row marginLeft0px marginRight0px paddingLeft5px paddingRight5px" ng-repeat="step in item.steps">-->
+											<!--<div class="col-sm-4 paddingLeft0px paddingRight0px">{{step.name}}</div>-->
+											<!--<div class="col-sm-2 paddingLeft0px paddingRight0px"></div>-->
+											<!--<div class="col-sm-4 paddingLeft0px paddingRight0px">-->
+												<!--<select ng-model="formStylistItem" class="form-control paddingLeft5px" id="stylistList" name="stylistList"-->
+												        <!--ng-options="item as item.name for item in stylists"></select>-->
+											<!--</div>-->
+											<!--<div class="col-sm-2 paddingRight0px paddingTop5px"><i class="pull-right glyphicon glyphicon-remove redText pointer" ng-click="deleteServiceStep(step, item.steps, item)"></i></div>-->
+										<!--</li>-->
+									<!--</ul>-->
+								</div>
+							</uib-accordion>
+						</div>
+
+						<!--<div class="col-sm-6 form-group">-->
+							<!--<label for="exampleInputPassword1">Date</label>-->
+							<!--<p class="input-group ">-->
+								<!--<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />-->
+								<!--<span class="input-group-btn">-->
+									<!--<button type="button" class="btn btn-m btn-primary" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>-->
+								<!--</span>-->
+							<!--</p>-->
+						<!--</div>-->
+					</form>
+				</div>
+				<div class="col-sm-7 overflowY overflowX minHeight400px">
+					<div class="col-sm-12 marginTop40px paddingLeft0px paddingRight0px" ng-show="!showSlots">
+						<span aria-hidden="true" class="largeIconSize glyphicon glyphicon-arrow-left"></span>
+					</div>
+					<div class="col-sm-12 marginTop20px paddingLeft0px paddingRight0px dateInput" ng-show="showSlots">
+						<div ng-show="showSlots">
+							<div class="col-sm-7 paddingLeft0px paddingRight0px">
+							</div>
+							<div class="col-sm-5 paddingLeft0px paddingRight0px">
+								<p class="input-group ">
+									<input type="text" class="form-control" readonly uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required" />
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-m btn-primary" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+									</span>
+								</p>
+							</div>
+						</div>
+						<table class="marginTop20px smallerFontSize calendar-table calendar-table-tdPadding5px table table-striped table-bordered table-hover" cellspacing="0" cellpadding="0">
+							<thead>
+							<tr>
+								<td>Stylist</td>
+								<td>Sun</td>
+								<td>Mon</td>
+								<td>Tue</td>
+								<td>Wed</td>
+								<td>Thu</td>
+								<td>Fri</td>
+								<td>Sat</td>
+							</tr>
+							</thead>
+							<tbody>
+							<tr class="rowHover">
+								<td class="width205px alignL">Sandy</td>
+								<td class="availability-red">&nbsp;</td>
+								<td class="availability-green pointer"><button type="submit" class="btn btn-success" ng-click="checkAvailability()"><span aria-hidden="true" class="glyphicon glyphicon-arrow-right"></span></button></td>
+								<td class="availability-green pointer"><button type="submit" class="btn btn-success" ng-click="checkAvailability()"><span aria-hidden="true" class="glyphicon glyphicon-arrow-right"></span></button></td>
+								<td class="availability-red">&nbsp;</td>
+								<td class="availability-red">&nbsp;</td>
+								<td class="availability-red">&nbsp;</td>
+								<td class="availability-green pointer"><button type="submit" class="btn btn-success" ng-click="checkAvailability()"><span aria-hidden="true" class="glyphicon glyphicon-arrow-right"></span></button></td>
+							</tr>
+							<tr class="rowHover">
+								<td class="width205px alignL">Tony</td>
+								<td class="availability-green pointer"><button type="submit" class="btn btn-success" ng-click="checkAvailability()"><span aria-hidden="true" class="glyphicon glyphicon-arrow-right"></span></button></td>
+								<td class="availability-red">&nbsp;</td>
+								<td class="availability-red">&nbsp;</td>
+								<td class="availability-red">&nbsp;</td>
+								<td class="availability-red">&nbsp;</td>
+								<td class="availability-red">&nbsp;</td>
+								<td class="availability-green pointer"><button type="submit" class="btn btn-success" ng-click="checkAvailability()"><span aria-hidden="true" class="glyphicon glyphicon-arrow-right"></span></button></td>
+							</tr>
+							<tr class="rowHover">
+								<td class="width205px alignL">Joe</td>
+								<td class="availability-green pointer"><button type="submit" class="btn btn-success" ng-click="checkAvailability()"><span aria-hidden="true" class="glyphicon glyphicon-arrow-right"></span></button></td>
+								<td class="availability-red">&nbsp;</td>
+								<td class="availability-green pointer"><button type="submit" class="btn btn-success" ng-click="checkAvailability()"><span aria-hidden="true" class="glyphicon glyphicon-arrow-right"></span></button></td>
+								<td class="availability-green pointer"><button type="submit" class="btn btn-success" ng-click="checkAvailability()"><span aria-hidden="true" class="glyphicon glyphicon-arrow-right"></span></button></td>
+								<td class="availability-green pointer"><button type="submit" class="btn btn-success" ng-click="checkAvailability()"><span aria-hidden="true" class="glyphicon glyphicon-arrow-right"></span></button></td>
+								<td class="availability-green pointer"><button type="submit" class="btn btn-success" ng-click="checkAvailability()"><span aria-hidden="true" class="glyphicon glyphicon-arrow-right"></span></button></td>
+								<td class="availability-green pointer"><button type="submit" class="btn btn-success" ng-click="checkAvailability()"><span aria-hidden="true" class="glyphicon glyphicon-arrow-right"></span></button></td>
+							</tr>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div uib-slide index="1" active="p2">
+				<div class="col-sm-12">
+					<div class="col-sm-12 text-left">
+						<button type="submit" class="btn btn-primary" ng-click="back()"><span aria-hidden="true" class="glyphicon glyphicon-arrow-left"></span> Back</button>
+					</div>
+					<div class="col-sm-12 overflowY overflowX minHeight120px marginTop20px">
+						<table class="calendar-table table table-striped table-bordered table-hover" cellspacing="0" cellpadding="0">
+							<thead>
+							<tr>
+								<td class="" nowrap>
+									<div style="width: 720px">
+										<div ng-repeat="hour in getNumber(numberOfHours) track by $index" style="float:left;">
+											<div style="float: left">
+												<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+												<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+												<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+												<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+												<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+												<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+												<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+												<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+												<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+												<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+												<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+												<div style="background-color: green; width:5px; min-width: 5px; float: left">&nbsp;</div>
+												<div class="calendar-head-dateText" style="position: absolute">
+													{{$index + startHour}}:00
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="row in scheduleData" class="rowHover">
+								<td class="paddingLeft0px paddingRight0px padding0px">
+									<div>
+										<div ng-repeat="hour in getNumber(numberOfHours) track by $index" style="position: relative">
+											<div class="calendar-panels-client-background-height" ng-if="row.start != ($index + startHour + 5) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+											<div class="calendar-panels-client-background-height" ng-if="row.start != ($index + startHour + 10) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+											<div class="calendar-panels-client-background-height" ng-if="row.start != ($index + startHour + 15) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+											<div class="calendar-panels-client-background-height" ng-if="row.start != ($index + startHour + 20) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+											<div class="calendar-panels-client-background-height" ng-if="row.start != ($index + startHour + 25) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+											<div class="calendar-panels-client-background-height" ng-if="row.start != ($index + startHour + 30) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+											<div class="calendar-panels-client-background-height" ng-if="row.start != ($index + startHour + 35) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+											<div class="calendar-panels-client-background-height" ng-if="row.start != ($index + startHour + 40) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+											<div class="calendar-panels-client-background-height" ng-if="row.start != ($index + startHour + 45) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+											<div class="calendar-panels-client-background-height" ng-if="row.start != ($index + startHour + 50) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+											<div class="calendar-panels-client-background-height" ng-if="row.start != ($index + startHour + 55) " style="width:5px; min-width: 5px; float: left">&nbsp;</div>
+											<div class="calendar-panels-client-background-height" ng-if="row.start != ($index + startHour + 60) " style="width:4px; min-width: 4px; float: left">&nbsp;</div>
+											<div class="calendar-panels-client-background-height" ng-if="row.start != ($index + startHour + 60) " style="background-color: #ddd; width:1px; min-width: 1px; float: left">&nbsp;</div>
+										</div>
+									</div>
+									<div style="position: absolute; width: 720px" class="marginTop15px">
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()">
+
+											</div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()">
+
+											</div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()">
+
+											</div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()">
+
+											</div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()">
+
+											</div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()">
+
+											</div>
+											<div class="calendar-panels calendar-panels-height relative busyItem" style=" width:{{120}}px; float: left; ">
+
+											</div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative busyItem" style=" width:{{220}}px; float: left; ">
+
+											</div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative availabilityItem pointer" style=" width:{{15}}px; float: left; " ng-click="bookAppointmentDate()"></div>
+											<div class="calendar-panels calendar-panels-height relative busyItem" style=" width:{{30}}px; float: left; ">
+
+											</div>
+									</div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div uib-slide index="2" active="p3">
+				<div class="col-sm-12">
+					<div class="col-sm-12 text-left">
+						<button type="submit" class="btn btn-primary" ng-click="checkAvailability()"><span aria-hidden="true" class="glyphicon glyphicon-arrow-left"></span> Back</button>
+					</div>
+					<div class="col-sm-5 col-sm-offset-2">
+						<dl class="dl-horizontal">
+							<dt>Day: </dt>
+							<dd>{{equity.buySell}}</dd>
+							<dt>Time: </dt>
+							<dd>{{equity.instrType}}</dd>
+							<dt>Procedure</dt>
+							<dd>{{equity.date}}</dd>
+							<dt>handledDate</dt>
+							<dd>{{equity.handledDate}}</dd>
+						</dl>
+					</div>
+					<div class="col-sm-12 text-right">
+						<button type="submit" class="btn btn-primary" ng-click=""><span aria-hidden="true" class="glyphicon glyphicon-plus"></span> Book it</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-m btn-primary" ng-click="closeLoginFail()">Close</button>
+	</div>
+</script>

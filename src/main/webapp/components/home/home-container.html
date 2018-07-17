@@ -1,0 +1,97 @@
+<div>
+	<div class="row header marginLeft0px marginRight0px">
+		<div class="container">
+			<div class="col-xs-8 col-sm-2 marginTop4px">
+				<img src="img/logo_full.png" width="137" height="46" title="desktop_logo.png">
+			</div>
+
+			<div class="col-xs-4 col-sm-4 col-sm-push-6 row  marginBottom4px paddingLeft0px paddingRight0px paddingTop15px">
+				<div class="row col-xs-12 paddingLeft0px paddingRight0px marginTop4px" ng-show="!performingLogin && !loggedIn">
+					<form class="inline">
+						<div class="col-sm-5 col-xs-12 marginleft0px marginright0px paddingLeft0px paddingRight5px">
+							<input type="username" class="form-control input-sm loginInputs" placeholder="Username" ng-model="userLoginData.userName">
+						</div>
+						<div class="col-sm-5 col-xs-12 marginleft0px paddingLeft0px paddingRight5px">
+							<input type="password" class="form-control input-sm loginInputs" placeholder="Password" ng-model="userLoginData.password">
+						</div>
+						<div class="col-sm-2 col-xs-12 marginleft0px marginright0px paddingLeft0px paddingRight0px">
+							<button type="submit" class="btn btn-m btn-primary right" ng-click="performLogin()">Sign in</button>
+						</div>
+					</form>
+				</div>
+				<div class="well well-sm center-block progressBarContainer" ng-show="performingLogin && !loggedIn">
+					<uib-progressbar class="progress-striped active progressBarContainer" value="100" type="{{type}}">{{type}}processing...</uib-progressbar>
+				</div>
+
+				<form class="marginTop4px inline alignR " ng-show="!performingLogin && loggedIn">
+					<button type="button" class="btn btn-m btn-primary" ng-click="logout()">Logout</button>
+				</form>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-sm-pull-4  marginBottom4px paddingTop15px">
+				<div class="marginTop4px">
+					<div class="col-xs-7">
+						<div class="btn-group pull-right" uib-dropdown uib-keyboard-nav  ng-show="!performingLogin && loggedIn">
+							<button id="simple-btn-keyboard-nav" type="button" class="btn btn-m btn-primary" uib-dropdown-toggle>
+								{{userData.username}} <span class="caret"></span>
+							</button>
+							<ul class="uib-dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+								<li role="menuitem"><a href="#">Action</a></li>
+								<li role="menuitem"><a href="#">Another action</a></li>
+								<li role="menuitem"><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li role="menuitem"><a href="#"><span class="glyphicon glyphicon glyphicon-menu-right"></span> Separated link</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-xs-5 paddingLeft0px paddingRight0px">
+						<form class="">
+							<input type="text" ng-model="asyncSelected" placeholder="Search" uib-typeahead="address for address in getLocation($viewValue)" typeahead-on-select="onSelect($item, $model, $label, $event)" typeahead-loading="loadingSearchLocations" typeahead-no-results="noResults" class="form-control input-sm loginInputs"  typeahead-popup-template-url="shareListTemplate.html.inline" typeahead-wait-ms="400">
+							<div ng-show="loadingSearchLocations" class="boxDropShadow loadingEquityList"><i class="glyphicon glyphicon-refresh"></i> Loading...</div>
+							<div ng-show="noResults" class="boxDropShadow loadingEquityList">
+								<i class="glyphicon glyphicon-remove"></i> No Results Found
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container marginTop20px">
+		<!--tabs data="tabData.tabs" type="tabs"></tabs-->
+		<tabs template-url="tab_template.html.inline" data="tabData.tabs"></tabs>
+		<div ui-view class="content contentFooterPadding minHeight400px marginBottom20px">
+			<div class="well well-lg marginTop40px center-block progressBarContainer">
+				<uib-progressbar class="progress-striped active progressBarContainer" value="100" type="{{type}}">{{type}}loading...</uib-progressbar>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<script type="text/ng-template" id="tab_template.html.inline">
+	<uib-tabset type="{{type}}">
+		<uib-tab ng-repeat="tab in tabs" heading="{{tab.heading}}" ui-sref="{{tab.route}}(tab.params)" ui-sref-opts="{{tab.options}}"
+			 active="tab.active" ng-hide="tab.disabled">
+		</uib-tab>
+	</uib-tabset>
+</script>
+
+<script type="text/ng-template" id="shareListTemplate.html.inline">
+	<div class="custom-popup-wrapper boxDropShadow"
+	     ng-style="{top: position().top+'px', left: position().left+'px'}"
+	     style="display: block;"
+	     ng-show="isOpen() && !moveInProgress"
+	     aria-hidden="{{!isOpen()}}">
+
+		<ul class="dropdown-menu" role="listbox">
+			<li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }"
+			    ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+				<div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+			</li>
+		</ul>
+	</div>
+</script>

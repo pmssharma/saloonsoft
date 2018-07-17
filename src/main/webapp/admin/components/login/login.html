@@ -1,0 +1,80 @@
+<div>
+	<div class="row header marginLeft0px marginRight0px">
+		<div class="container">
+			<div class="col-xs-8 col-sm-2 marginTop4px marginBottom4px">
+				<img src="img/logo_full.png" width="137" height="60" title="desktop_logo.png">
+			</div>
+
+			<div class="col-xs-4 col-sm-4 col-sm-push-6 row  marginBottom4px paddingLeft0px paddingRight0px paddingTop10px">
+				<div class="row col-xs-12 paddingLeft0px paddingRight0px marginTop4px" ng-show="!performingLogin && !loggedIn">
+					<form class="inline">
+						<div class="col-sm-5 col-xs-12 marginleft0px marginright0px paddingLeft0px paddingRight5px">
+							<input type="username" class="form-control input-sm loginInputs" placeholder="Username" ng-model="userLoginData.userName">
+						</div>
+						<div class="col-sm-5 col-xs-12 marginleft0px paddingLeft0px paddingRight5px">
+							<input type="password" class="form-control input-sm loginInputs" placeholder="Password" ng-model="userLoginData.password">
+						</div>
+						<div class="col-sm-2 col-xs-12 marginleft0px marginright0px paddingLeft0px paddingRight0px">
+							<button type="submit" class="btn btn-sm btn-primary right" ng-click="performLogin()">Sign in</button>
+						</div>
+					</form>
+				</div>
+				<div class="well well-sm center-block progressBarContainer" ng-show="performingLogin && !loggedIn">
+					<uib-progressbar class="progress-striped active progressBarContainer" value="100" type="{{type}}">{{type}}processing...</uib-progressbar>
+				</div>
+
+				<form class="marginTop4px inline alignR " ng-show="!performingLogin && loggedIn">
+					<input type="button" class="btn btn-sm btn-primary gradient" value="logout" ng-click="logout()">
+				</form>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-sm-pull-4  marginBottom4px paddingTop10px">
+				<div class="marginTop4px">
+					<div class="col-xs-7">
+						<div class="btn-group pull-right" uib-dropdown uib-keyboard-nav  ng-show="!performingLogin && loggedIn">
+							<button id="simple-btn-keyboard-nav" type="button" class="btn btn-sm btn-primary gradient" uib-dropdown-toggle>
+								{{userData.username}} <span class="caret"></span>
+							</button>
+							<ul class="uib-dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+								<li role="menuitem"><a href="#">Action</a></li>
+								<li role="menuitem"><a href="#">Another action</a></li>
+								<li role="menuitem"><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li role="menuitem"><a href="#"><span class="glyphicon glyphicon glyphicon-menu-right"></span> Separated link</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-xs-5 paddingLeft0px paddingRight0px">
+						<form class="">
+							<input type="text" ng-model="asyncSelected" placeholder="Search" uib-typeahead="address for address in getLocation($viewValue)" typeahead-on-select="onSelect($item, $model, $label, $event)" typeahead-loading="loadingSearchLocations" typeahead-no-results="noResults" class="form-control input-sm loginInputs"  typeahead-popup-template-url="shareListTemplate.html.inline" typeahead-wait-ms="400">
+							<div ng-show="loadingSearchLocations" class="boxDropShadow loadingEquityList"><i class="glyphicon glyphicon-refresh"></i> Loading...</div>
+							<div ng-show="noResults" class="boxDropShadow loadingEquityList">
+								<i class="glyphicon glyphicon-remove"></i> No Results Found
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div ui-view class="marginTop20px marginBottom70px"></div>
+</div>
+
+
+
+
+
+<script type="text/ng-template" id="loginFail.html.inline">
+	<div class="modal-header">
+		<h3 class="modal-title">Login failure</h3>
+	</div>
+	<div class="modal-body">
+		An error occurred logging you in.
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-sm btn-primary" ng-click="closeLoginFail()">Close</button>
+	</div>
+</script>
+
+
