@@ -12,7 +12,9 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.saloonsoft.app.dto.ServiceMasterDTO;
 import com.saloonsoft.app.dto.StaffDTO;
+import com.saloonsoft.app.entities.ServiceMaster;
 import com.saloonsoft.app.entities.Staff;
 import com.saloonsoft.app.repositories.StaffRepository;
 
@@ -68,6 +70,19 @@ public class StaffServiceImpl implements StaffService{
 		//staffRepository.u		
 		return staffDTO.getId();
 	}
-	
+
+	@Override
+	public List<StaffDTO> getStaffAll() {
+		
+		List<StaffDTO> staffListDTO =  new ArrayList<StaffDTO>();
+		List<Staff> staffEntList = (List<Staff>) staffRepository.findAll();
+	    for(Staff staff:staffEntList) {
+	    	StaffDTO staffDTO = new StaffDTO();
+	    	BeanUtils.copyProperties(staff, staffDTO);
+	    	staffListDTO.add(staffDTO);
+	    	
+	    }
+		return staffListDTO;
+	}
 }
  

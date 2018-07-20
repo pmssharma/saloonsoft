@@ -21,24 +21,21 @@ public class Process
     private String timeSlot;
     private String aid;
 
-    public String getAid() {
+    
+    public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getAid() {
 		return aid;
 	}
 	public void setAid(String aid) {
 		this.aid = aid;
 	}
-	public String getName ()
-    {
-        return name;
-    }
 
-    public void setName (String name)
-    {
-        this.name = name;
-    }
-
-    
-    public String getTimeSlot ()
+	public String getTimeSlot ()
     {
         return timeSlot;
     }
@@ -47,6 +44,10 @@ public class Process
     {
         this.timeSlot = timeSlot;
     }
-
-   
+	
+    @Override
+	public String toString() {
+		return "Process [id=" + id + ", Name=" + name + ", timeSlot=" + timeSlot + ", aid=" + aid + "]";
+	}
+    
 }

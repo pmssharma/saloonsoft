@@ -2,9 +2,7 @@ package com.saloonsoft.app.services;
 
 
 import java.util.List;
-
 import com.saloonsoft.app.dto.ClientDTO;
-
 
 public interface ClientService {
 
@@ -12,5 +10,7 @@ public interface ClientService {
 	
 	List<ClientDTO> getClientByClientId(String clientId);
 
-	String delete(String clientId); 
+	String delete(String clientId);
+
+	List<ClientDTO> getClientAll(); 
 }

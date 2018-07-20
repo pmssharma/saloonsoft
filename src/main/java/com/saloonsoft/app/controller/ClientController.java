@@ -39,4 +39,10 @@ public class ClientController {
 	public String deleteByClientId(@Valid @RequestParam String clientId) {
 		return clientService.delete(clientId);
 	}
+	
+	@RequestMapping(value = "/v1/getClientAll", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ClientDTO> getClientAll() {
+		return clientService.getClientAll();
+	}
+	
 }

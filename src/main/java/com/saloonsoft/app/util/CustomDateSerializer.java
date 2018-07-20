@@ -14,9 +14,11 @@ public class CustomDateSerializer extends JsonSerializer<Date> {
 	@Override
 	public void serialize(Date value, JsonGenerator gen, SerializerProvider serializers)
 			throws IOException, com.fasterxml.jackson.core.JsonProcessingException {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 		String formattedDate = dateFormat.format(value);
 		if (!formattedDate.isEmpty())
 			gen.writeString(formattedDate);
 	}
+	
+	
 }

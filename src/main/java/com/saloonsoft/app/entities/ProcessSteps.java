@@ -1,5 +1,7 @@
 package com.saloonsoft.app.entities;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,6 +19,8 @@ public class ProcessSteps {
 	private String staff;
 	private String procedureStepID;
 	private String procedure;
+	private Date startTime;
+	private Date endTime;
 	private String duration;
 	private String pid;
 	private String aid;
@@ -39,6 +43,19 @@ public class ProcessSteps {
 	public void setProcedure(String procedure) {
 		this.procedure = procedure;
 	}
+	
+	public Date getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+	public Date getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
 	public String getDuration() {
 		return duration;
 	}
@@ -57,5 +74,14 @@ public class ProcessSteps {
 	public void setAid(String aid) {
 		this.aid = aid;
 	}
+	
+	@Override
+	public String toString() {
+		return "ProcessSteps [id=" + id + ", staff=" + staff + ", procedureStepID=" + procedureStepID + ", procedure="
+				+ procedure + ", startTime=" + startTime + ", endTime=" + endTime + ", duration=" + duration + ", pid="
+				+ pid + ", aid=" + aid + "]";
+	}
+
+	
 	
 }

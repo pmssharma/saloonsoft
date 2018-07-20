@@ -5,8 +5,10 @@ import java.util.List;
 import com.saloonsoft.app.dto.DownTimeOnceOffDTO;
 import com.saloonsoft.app.dto.DownTimeRecurringDTO;
 import com.saloonsoft.app.dto.PublicHolidaysDTO;
+import com.saloonsoft.app.dto.ServiceMasterDTO;
 import com.saloonsoft.app.dto.WeekTradingHoursDTO;
 import com.saloonsoft.app.dto.StaffDTO;
+import com.saloonsoft.app.dto.StaffRoleDTO;
 
 public interface AdminService {
 
@@ -30,5 +32,12 @@ public interface AdminService {
 	DownTimeOnceOffDTO findByDownTimeIdOnce(String downTimeId);
 	String deleteDownTimeOnceOff(String downTimeOnceOff);
 	
+	String insertStaffRole(StaffRoleDTO staffRoleDTO);
+	
+	List<StaffRoleDTO> getRoles();
+	
+	String insertService(ServiceMasterDTO serviceMasterDTO);
+	
+	List<ServiceMasterDTO> getServices();
 	 
 }

@@ -42,5 +42,9 @@ public class StaffController {
 		return staffService.updateStaff(staffDTO);
 	}
 
+	@RequestMapping(value = "/v1/getStaffAll", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<StaffDTO> getStaffAll() {
+		return staffService.getStaffAll();
+	}
 	
 }

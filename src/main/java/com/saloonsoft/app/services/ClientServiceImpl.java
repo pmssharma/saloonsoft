@@ -53,4 +53,18 @@ public class ClientServiceImpl implements ClientService{
 		}
 		return clientId;
 	}
+
+	@Override
+	public List<ClientDTO> getClientAll() {
+		
+		List<ClientDTO> clientListDTO =  new ArrayList<ClientDTO>();
+		List<Client> clientEntList = (List<Client>) clientRepository.findAll();
+	    for(Client client:clientEntList) {
+	    	ClientDTO clientDTO = new ClientDTO();
+	    	BeanUtils.copyProperties(client, clientDTO);
+	    	clientListDTO.add(clientDTO);
+	    	
+	    }
+		return clientListDTO;
+	}
 } 

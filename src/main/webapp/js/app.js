@@ -341,7 +341,7 @@ var SalonSoftApp = angular.module('salonSoftApp', [ 'ui.router',
 			portfolioPerformanceUrl : 'components/testSvc/portfolio.js',
 			ordersUrl: 'components/testSvc/ordersOpen.js',
 			searchUrl : 'components/testSvc/search.js',
-			scheduleUrl: '/api/appointment/v1/getAppointmentByDate?appDate=2018-07-05'
+			scheduleUrl: 'components/testSvc/schedule.js'
 		};
 	})
 .factory('SalonSoftGlobalService', SalonSoftGlobalServiceObj)

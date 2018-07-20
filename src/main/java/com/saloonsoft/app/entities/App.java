@@ -1,5 +1,7 @@
 package com.saloonsoft.app.entities;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,13 +18,13 @@ public class App {
 		this.id = id;
 	}
 	
-	private String appDate;
+	private Date appDate;
 	private String clientID;
 	
-	public String getAppDate() {
+	public Date getAppDate() {
 		return appDate;
 	}
-	public void setAppDate(String appDate) {
+	public void setAppDate(Date appDate) {
 		this.appDate = appDate;
 	}
 	public String getClientID() {

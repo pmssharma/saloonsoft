@@ -1,11 +1,8 @@
 package com.saloonsoft.app.entities;
 
-import java.util.Arrays;
 import java.util.Date;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import com.saloonsoft.app.dto.StaffServicesDTO;
 
 @Document(collection = "Staff")

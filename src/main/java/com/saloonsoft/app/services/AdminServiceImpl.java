@@ -14,18 +14,24 @@ import com.mongodb.client.MongoDatabase;
 import com.saloonsoft.app.dto.DownTimeOnceOffDTO;
 import com.saloonsoft.app.dto.DownTimeRecurringDTO;
 import com.saloonsoft.app.dto.PublicHolidaysDTO;
+import com.saloonsoft.app.dto.ServiceMasterDTO;
 import com.saloonsoft.app.dto.StaffDTO;
+import com.saloonsoft.app.dto.StaffRoleDTO;
 import com.saloonsoft.app.dto.WeekTradingHoursDTO;
 import com.saloonsoft.app.entities.DownTimeOnceOff;
 import com.saloonsoft.app.entities.DownTimeRecurring;
 import com.saloonsoft.app.entities.PublicHolidays;
+import com.saloonsoft.app.entities.ServiceMaster;
 import com.saloonsoft.app.entities.Staff;
+import com.saloonsoft.app.entities.StaffRole;
 import com.saloonsoft.app.entities.WeekTradingHours;
 import com.saloonsoft.app.repositories.AdminRepository;
 import com.saloonsoft.app.repositories.DownTimeOnceOffRepository;
 import com.saloonsoft.app.repositories.DownTimeRecurringRepository;
 import com.saloonsoft.app.repositories.PublicHolidaysRepository;
+import com.saloonsoft.app.repositories.ServiceMasterRepository;
 import com.saloonsoft.app.repositories.StaffRepository;
+import com.saloonsoft.app.repositories.StaffRoleReposoitory;
 
 
 @Service
@@ -36,6 +42,9 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
 	StaffRepository staffRepository;
+
+	@Autowired
+	StaffRoleReposoitory staffRoleRepository;
 	
 	@Autowired
 	PublicHolidaysRepository publicHolidaysRepository;
@@ -45,6 +54,9 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
 	DownTimeRecurringRepository downTimeRecurringRepository;
+	
+	@Autowired
+	ServiceMasterRepository serviceMasterRepository;
 
 	@Override
 	public String insertPublicHolidays(PublicHolidaysDTO publicHolidaysDto) {
@@ -70,7 +82,6 @@ public class AdminServiceImpl implements AdminService{
 	public String insertDownTimeOnceOff(DownTimeOnceOffDTO downTimeOnceOffDTO) {
 		
 		 DownTimeOnceOff downTimeOnceOff = new DownTimeOnceOff();
-		 DownTimeRecurring downTimeRecurring = new DownTimeRecurring();
 		 BeanUtils.copyProperties(downTimeOnceOffDTO, downTimeOnceOff);
 		 downTimeOnceOffRepository.save(downTimeOnceOff);
 		 return downTimeOnceOff.getId();
@@ -153,6 +164,46 @@ public class AdminServiceImpl implements AdminService{
 		downTimeOnceOffDTO = downTimeOnceOffRepository.findByDownTimeId(downTimeOnceOff);
 		downTimeOnceOffRepository.deleteById(downTimeOnceOffDTO.getId());
 		return downTimeOnceOff;		
+	}
+
+	@Override
+	public String insertStaffRole(StaffRoleDTO staffRoleDTO) {
+		// TODO Auto-generated method stub
+		StaffRole staffRole = new StaffRole();
+		BeanUtils.copyProperties(staffRoleDTO, staffRole);
+		staffRoleRepository.save(staffRole);
+		return staffRole.getId();
+	}
+
+	@Override
+	public List<StaffRoleDTO> getRoles() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String insertService(ServiceMasterDTO serviceMasterDTO) {
+		
+		ServiceMaster serviceMaster = new ServiceMaster();
+		BeanUtils.copyProperties(serviceMasterDTO, serviceMaster);
+		serviceMasterRepository.save(serviceMaster);
+		return serviceMaster.getId();
+	}
+
+	@Override
+	public List<ServiceMasterDTO> getServices() {
+		
+		List<ServiceMasterDTO> serviceMasterListDTO =  new ArrayList<ServiceMasterDTO>();
+		List<ServiceMaster> serviceMasterEntList = (List<ServiceMaster>) serviceMasterRepository.findAll();
+		
+		//ServiceMasterDTO serviceMasterDTO = new ServiceMasterDTO();
+	    for(ServiceMaster serviceMaster:serviceMasterEntList) {
+	    	ServiceMasterDTO serviceMasterDTO = new ServiceMasterDTO();
+	    	BeanUtils.copyProperties(serviceMaster, serviceMasterDTO);
+	    	serviceMasterListDTO.add(serviceMasterDTO);
+	    	
+	    }
+		return serviceMasterListDTO;
 	}
 	
 }

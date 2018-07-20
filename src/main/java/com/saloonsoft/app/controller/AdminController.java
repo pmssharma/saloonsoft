@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.saloonsoft.app.dto.DownTimeOnceOffDTO;
 import com.saloonsoft.app.dto.DownTimeRecurringDTO;
 import com.saloonsoft.app.dto.PublicHolidaysDTO;
+import com.saloonsoft.app.dto.ServiceMasterDTO;
 import com.saloonsoft.app.dto.StaffDTO;
+import com.saloonsoft.app.dto.StaffRoleDTO;
 import com.saloonsoft.app.dto.WeekTradingHoursDTO;
 import com.saloonsoft.app.services.AdminService;
 
@@ -25,7 +27,7 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 	
-	@RequestMapping(value = "/v1/insertPublicHolidays", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/v1/1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String insertPublicHolidays(@RequestBody PublicHolidaysDTO holidaysDto) {
 		return adminService.insertPublicHolidays(holidaysDto);
 	}
@@ -64,4 +66,26 @@ public class AdminController {
 	public String deleteDownTimeOnceOff(@Valid @RequestParam String downTimeOnceOff) {
 		return adminService.deleteDownTimeOnceOff(downTimeOnceOff);
 	}
+	
+	@RequestMapping(value = "/v1/insertStaffRole", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String insertStaffRole(@RequestBody StaffRoleDTO staffRoleDTO) {
+		return adminService.insertStaffRole(staffRoleDTO);
+	}
+	
+	@RequestMapping(value = "/v1/getRoles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<StaffRoleDTO> getRoles( ) {
+		return adminService.getRoles();
+	}
+	
+	@RequestMapping(value = "/v1/insertService", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String insertProcessName(@RequestBody ServiceMasterDTO serviceMasterDTO) {
+		return adminService.insertService(serviceMasterDTO);
+	}
+
+	@RequestMapping(value = "/v1/getServices", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ServiceMasterDTO> getServices( ) {
+		return adminService.getServices();
+	}
+
+	
 }

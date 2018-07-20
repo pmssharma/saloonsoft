@@ -1,14 +1,28 @@
 package com.saloonsoft.app.dto;
 
+import java.util.Arrays;
+import java.util.Date;
+import com.saloonsoft.app.util.*;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 public class AppointmentObject
 {
-	//private String id;
-    private ProcessObject[] processName;
-    private String clientID;
-    private String appDate;
+	private String id;
+	private String clientID;
+	@JsonSerialize(using = CustomDateSerializerForDate.class)
+	private Date appDate;
+	private ProcessObject[] processName;
+   
+    public String getId() {
+		return id;
+	}
 
-    
-    public ProcessObject[] getProcessName ()
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public ProcessObject[] getProcessName ()
     {
         return processName;
     }
@@ -28,19 +42,18 @@ public class AppointmentObject
         this.clientID = clientID;
     }
 
-    public String getAppDate ()
-    {
-        return appDate;
-    }
+	public Date getAppDate() {
+		return appDate;
+	}
 
-    public void setAppDate (String appDate)
-    {
-        this.appDate = appDate;
-    }
+	public void setAppDate(Date appDate) {
+		this.appDate = appDate;
+	}
 
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [processName = "+processName+", clientID = "+clientID+", appDate = "+appDate+"]";
-    }
+	@Override
+	public String toString() {
+		return "AppointmentObject [id=" + id + ", clientID=" + clientID + ", appDate=" + appDate + ", processName="
+				+ Arrays.toString(processName) + "]";
+	}
+    
 }

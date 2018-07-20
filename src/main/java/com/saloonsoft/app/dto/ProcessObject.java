@@ -6,9 +6,8 @@ public class ProcessObject
 {
 	private String id;
     private String name;
-    private ProcedureStepsDTO[] procedureSteps;
     private String timeSlot;
-    
+    private ProcedureStepsDTO[] procedureSteps;
     
     public String getId() {
 		return id;
@@ -50,8 +49,8 @@ public class ProcessObject
 
 	@Override
 	public String toString() {
-		return "ProcessObject [name=" + name + ", procedureSteps=" + Arrays.toString(procedureSteps) + ", timeSlot="
-				+ timeSlot + "]";
+		return "ProcessObject [id=" + id + ", name=" + name + ", procedureSteps=" + Arrays.toString(procedureSteps)
+				+ ", timeSlot=" + timeSlot + "]";
 	}
     
 }
